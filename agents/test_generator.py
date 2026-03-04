@@ -20,7 +20,7 @@ class TestGeneratorAgent:
         intent = secretary_output.get('intent', '')
         component_map = json.dumps(secretary_output.get('component_map', []))
         bugs = json.dumps(inspector_output.get('bugs', []))
-        elements = json.dumps(scan_data.get('elements', [])[:60])
+        elements = json.dumps(scan_data.get('elements', [])[:30])
 
         prompt = f"""You are a Senior QA Engineer. Analyze this web page screenshot and generate a COMPLETE test suite.
 
@@ -76,7 +76,7 @@ Return ONLY valid JSON in this exact format:
         response = self.client.models.generate_content(
             model="gemini-2.0-flash",
             contents=[prompt, img],
-            config={"response_mime_type": "application/json"}
+            config={"response_mime_type": "application/json", "max_output_tokens": 8192}
         )
 
         result = json.loads(response.text)

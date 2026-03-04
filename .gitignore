@@ -25,3 +25,7 @@ env/
 .env
 *.json.key
 service-account*.json
+
+# Local state (not committed)
+.suggested_urls.json
+.visited_urls.json
